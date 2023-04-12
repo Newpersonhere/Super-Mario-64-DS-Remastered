@@ -322,13 +322,13 @@ void bowser_act_walk_to_mario(void) // turn towards Mario
     s16 turnSpeed;
     s16 angleFromMario = abs_angle_diff(o->oMoveAngleYaw, o->oAngleToMario);
     if (BITFS)
-        turnSpeed = 0x400;
+        turnSpeed = 0x9;
     else if (o->oHealth > 2)
-        turnSpeed = 0x400;
+        turnSpeed = 0x9;
     else if (o->oHealth == 2)
-        turnSpeed = 0x300;
+        turnSpeed = 0x8;
     else
-        turnSpeed = 0x200;
+        turnSpeed = 0x7;
     facing = cur_obj_rotate_yaw_toward(o->oAngleToMario, turnSpeed);
     if (o->oSubAction == 0) {
         o->oBowserUnkF8 = 0;
