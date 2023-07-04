@@ -180,7 +180,7 @@ void bowser_act_intro_walk(void) {
     }
 }
 
-static void bowser_debug_actions(void) // unused
+void bowser_debug_actions(void)
 {
     if (gDebugInfo[5][1] != 0) {
         o->oAction = D_8032F4FC[gDebugInfo[5][2] & 0xf];
@@ -285,7 +285,7 @@ void bowser_reset_fallen_off_stage(void) {
     }
 }
 
-void bowser_act_unused_slow_walk(void) // unused?
+void bowser_act_slow_walk(void)
 {
     if (cur_obj_init_animation_and_check_if_near_end(12))
         o->oAction = 0;
@@ -318,7 +318,7 @@ void bowser_act_breath_fire(void) {
 
 void bowser_act_walk_to_mario(void) // turn towards Mario
 {
-    UNUSED s32 facing; // is Bowser facing Mario?
+    s32 facing; // is Bowser facing Mario?
     s16 turnSpeed;
     s16 angleFromMario = abs_angle_diff(o->oMoveAngleYaw, o->oAngleToMario);
     if (BITFS)
@@ -468,7 +468,7 @@ void bowser_short_second_hop(void) {
 }
 
 void bowser_act_jump(void) {
-    UNUSED s32 unused;
+     s32 // Who Knows
     if (o->oSubAction == 0) {
         if (bowser_set_anim_in_air()) {
             if (BITS && o->oBowserUnkF4 & 0x10000)
@@ -632,7 +632,7 @@ s32 bowser_check_hit_mine(void) {
 
 void bowser_act_thrown_dropped(void)
 {
-    UNUSED s32 unused;
+     s32 u
     if (o->oTimer < 2)
         o->oBowserUnkF8 = 0;
     if (o->oSubAction == 0) {
@@ -664,7 +664,7 @@ void bowser_set_goal_invisible(void) {
 
 void bowser_act_jump_onto_stage(void) {
     s32 sp2C;
-    UNUSED s32 unused;
+    s32 
     struct Surface *sp24 = o->oFloor;
     if (sp24 != NULL && sp24->flags & 1)
         sp2C = 1;
@@ -829,7 +829,6 @@ s32 bowser_dead_not_bits_end(void) {
 }
 
 s32 bowser_dead_bits_end(void) {
-    UNUSED s32 unused;
     s32 ret = 0;
     s32 dialogID;
     if (o->oBowserUnkF8 < 2) {
@@ -899,9 +898,8 @@ void bowser_tilt_platform(struct Object *platform, s16 a1) {
 
 void bowser_act_ride_tilting_platform(void) {
     struct Object *platform = cur_obj_nearest_object_with_behavior(bhvTiltingBowserLavaPlatform);
-    UNUSED s16 sp2A = o->oBowserAngleToCentre + 0x8000;
+    s16 sp2A = o->oBowserAngleToCentre + 0x8000;
     s16 sp28;
-    UNUSED s32 unused;
     s32 i;
     s32 sp1C;
     if (platform == NULL)
@@ -1009,7 +1007,7 @@ struct Struct8032F698 D_8032F698[] = { { NULL, 0, 0, 0, 0 },
 void bowser_free_update(void) {
     struct Surface *floor;
     struct Object *platform;
-    UNUSED f32 floorHeight;
+    f32 floorHeight;
     if ((platform = o->platform) != NULL)
         apply_platform_displacement(0, platform);
     o->oBowserUnk10E = 0;
@@ -1139,7 +1137,7 @@ void bhv_bowser_init(void) {
 #undef BITFS
 #undef BITS
 
-Gfx *geo_update_body_rot_from_parent(s32 run, UNUSED struct GraphNode *node, Mat4 mtx) {
+Gfx *geo_update_body_rot_from_parent(s32 run, Struct GraphNode *node, Mat4 mtx) {
     Mat4 sp20;
     struct Object *sp1C;
 
@@ -1269,7 +1267,7 @@ void falling_bowser_plat_act_0(void) {
 }
 
 void falling_bowser_plat_act_1(void) {
-    UNUSED s32 unused;
+    s32 // NO ONE KNOWS
     struct Object *sp0 = o->oPlatformUnkF8;
     if (sp0->platform == o)
         if (sp0->oAction == 13 && sp0->oBowserUnkF4 & 0x10000)
