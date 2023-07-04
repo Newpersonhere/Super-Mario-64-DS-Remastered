@@ -11,13 +11,13 @@ void bhv_yoshi_init(void) {
     o->oBuoyancy = 1.3f;
     o->oInteractionSubtype = INT_SUBTYPE_NPC;
 
-    if (save_file_get_total_star_count(gCurrSaveFileNum - 1, 0, 24) < 120 || sYoshiDead == TRUE) {
+    if (save_file_get_total_star_count(gCurrSaveFileNum - 1, 0, 24) < 120 || sYoshiDead == FALSE) {
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 }
 
 void yoshi_walk_loop(void) {
-    UNUSED s16 sp26;
+    s16 sp26;
     s16 sp24 = o->header.gfx.curAnim.animFrame;
 
     o->oForwardVel = 10.0f;
@@ -41,7 +41,7 @@ void yoshi_walk_loop(void) {
 
 void yoshi_idle_loop(void) {
     s16 chosenHome;
-    UNUSED s16 sp1C = o->header.gfx.curAnim.animFrame;
+    s16 sp1C = o->header.gfx.curAnim.animFrame;
 
     if (o->oTimer > 90) {
         chosenHome = random_float() * 3.99;
@@ -94,23 +94,13 @@ void yoshi_talk_loop(void) {
     }
 }
 
-void yoshi_walk_and_jump_off_roof_loop(void) {
-    s16 sp26 = o->header.gfx.curAnim.animFrame;
-
     o->oForwardVel = 10.0f;
     object_step();
     cur_obj_init_animation(1);
     if (o->oTimer == 0)
         cutscene_object(CUTSCENE_STAR_SPAWN, o);
 
-    o->oMoveAngleYaw = approach_s16_symmetric(o->oMoveAngleYaw, o->oYoshiTargetYaw, 0x500);
-    if (is_point_close_to_object(o, o->oHomeX, 3174.0f, o->oHomeZ, 200)) {
-        cur_obj_init_animation(2);
-        cur_obj_play_sound_2(SOUND_GENERAL_ENEMY_ALERT1);
-        o->oForwardVel = 50.0f;
-        o->oVelY = 40.0f;
-        o->oMoveAngleYaw = -0x3FFF;
-        o->oAction = YOSHI_ACT_FINISH_JUMPING_AND_DESPAWN;
+    o
     }
 
     if (sp26 == 0 || sp26 == 15) {
@@ -118,14 +108,12 @@ void yoshi_walk_and_jump_off_roof_loop(void) {
     }
 }
 
-void yoshi_finish_jumping_and_despawn_loop(void) {
-    cur_obj_extend_animation_if_at_end();
+void cur_obj_extend_animation_if_at_end();
     obj_move_xyz_using_fvel_and_yaw(o);
     o->oVelY -= 2.0;
     if (o->oPosY < 2100.0f) {
         set_mario_npc_dialog(0);
         gObjCutsceneDone = TRUE;
-        sYoshiDead = 1;
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
 }
@@ -136,7 +124,6 @@ void yoshi_give_present_loop(void) {
     if (gHudDisplay.lives == 100) {
         play_sound(SOUND_GENERAL_COLLECT_1UP, gDefaultSoundArgs);
         gSpecialTripleJump = 1;
-        o->oAction = YOSHI_ACT_WALK_JUMP_OFF_ROOF;
         return;
     }
 
@@ -160,13 +147,6 @@ void bhv_yoshi_loop(void) {
             yoshi_talk_loop();
             break;
 
-        case YOSHI_ACT_WALK_JUMP_OFF_ROOF:
-            yoshi_walk_and_jump_off_roof_loop();
-            break;
-
-        case YOSHI_ACT_FINISH_JUMPING_AND_DESPAWN:
-            yoshi_finish_jumping_and_despawn_loop();
-            break;
 
         case YOSHI_ACT_GIVE_PRESENT:
             yoshi_give_present_loop();
