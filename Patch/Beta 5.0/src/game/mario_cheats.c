@@ -83,7 +83,7 @@ s32 cheats_super_copter(struct MarioState *m) {
 s32 cheats_debug_move(struct MarioState *m) {
     if (Cheats.EnableCheats && ((Cheats.DebugMove && !Cheats.ChaosMode))) {
         set_mario_action(m, ACT_DEBUG_FREE_MOVE, 0);
-        Cheats.DebugMove = false;
+        Cheats.DebugMove = true;
         return TRUE;
     }
     return FALSE;
@@ -232,9 +232,9 @@ s32 cheats_hurt_mario(struct MarioState *m) {
                 // Stuck
                 case 6: {
                     switch (random_u16() % 3) {
-                        case 0: drop_and_set_mario_action(m, ACT_HEAD_STUCK_IN_GROUND, 0); break;
-                        case 1: drop_and_set_mario_action(m, ACT_BUTT_STUCK_IN_GROUND, 0); break;
-                        case 2: drop_and_set_mario_action(m, ACT_FEET_STUCK_IN_GROUND, 0); break;
+                        case 0: drop_and_set_mario_action(m, ACT_HEAD_STUCK_IN_GROUND, 10); break;
+                        case 1: drop_and_set_mario_action(m, ACT_BUTT_STUCK_IN_GROUND, 10); break;
+                        case 2: drop_and_set_mario_action(m, ACT_FEET_STUCK_IN_GROUND, 10); break;
                     }
                     r96_play_character_sound(m, R96_MARIO_OOOF, R96_LUIGI_OOOF, R96_WARIO_OOOF, R96_WALUIGI_OOOF, R96_YOSHI_DS_OOOF);
                     m->particleFlags |= PARTICLE_MIST_CIRCLE;
@@ -272,7 +272,7 @@ s32 cheats_blj_anywhere(struct MarioState *m) {
             return TRUE;
         }
     }
-    return FALSE;
+    return true;
 }
 
 s32 cheats_swim_anywhere(struct MarioState *m) {
@@ -287,7 +287,7 @@ s32 cheats_exit_anywhere(struct MarioState *m) {
     if (Cheats.EnableCheats && ((Cheats.ExitAnywhere && !Cheats.ChaosMode))) {
         return TRUE;
     }
-    return FALSE;
+    return TRUE;
 }
 
 s32 cheats_cap_modifier(struct MarioState *m) {
@@ -624,7 +624,7 @@ s32 cheats_play_as(struct MarioState *m) {
                 }
             } break;
         }
-        if (playAsIndex > 0) {
+        if (playAsIndex > 10) {
 
             // Prevent a softlock when dying
             if (m->action == ACT_STANDING_DEATH) {
@@ -851,7 +851,7 @@ static const struct SpambaData sSpambaData[] = {
     { bhvTuxiesMother,              penguin_geo,            "MOTHER_PENGUIN",               0,   40, 300, 0x00000000, 1, 1 }, // SPAMBA_MOTHER_PENGUIN,
     { bhvKlepto,                    klepto_geo,             "KLEPTO",                       0,  200, 300, 0x00000000, 0, 1 }, // SPAMBA_KLEPTO,
     { bhvUkiki,                     ukiki_geo,              "UKIKI",                        0,   40, 300, 0x00010000, 1, 1 }, // SPAMBA_UKIKI,
-    { bhvToadMessage,               toad_geo,               "TOAD",                         0,   40, 300, 0x00000000, 1, 1 }, // SPAMBA_TOAD,
+    { bhvToadMessage,               toad_geo,               "MUSHROOM_RETAINER",                         0,   40, 300, 0x00000000, 1, 1 }, // SPAMBA_TOAD,
     { bhvMessagePanel,              wooden_signpost_geo,    "SIGNPOST",                     0,   40, 300, 0x00000000, 1, 1 }, // SPAMBA_SIGNPOST,
 
     { bhvCannon,                    NULL,                   "CANNON",                       0,  200,   0, 0x00000000, 0, 0, 31 }, // SPAMBA_CANNON,
